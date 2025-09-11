@@ -128,7 +128,6 @@ Keep answers short, concise, and professional.
 Respond naturally without referencing past discussions.
 """
 }
-
     ]
 
     # Add conversation history (limit to last 10 conversations to avoid token limits)
