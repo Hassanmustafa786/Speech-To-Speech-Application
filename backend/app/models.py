@@ -37,21 +37,7 @@ class User(AbstractUser):
         db_table = 'app_user'
 
     def save(self, *args, **kwargs):
-        if not self.username:
-            # Generate username from name: lowercase, replace spaces with underscores, add random numbers
-            base_username = self.name.lower().replace(' ', '_')
-            
-            # Generate 2-3 random numbers for uniqueness
-            random_numbers = random.randint(10, 999)
-            username = f"{base_username}_{random_numbers}"
-            
-            # Check if username already exists and regenerate if needed
-            while User.objects.filter(username=username).exclude(pk=self.pk).exists():
-                random_numbers = random.randint(10, 999)
-                username = f"{base_username}_{random_numbers}"
-            
-            self.username = username
-        
+        # Since we set username = None, we don't need to generate usernames
         super().save(*args, **kwargs)
 
     def __str__(self):
