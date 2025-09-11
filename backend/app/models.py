@@ -20,9 +20,11 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    username = models.CharField(max_length=255, unique=True, blank=True)
-    name = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)
+    # Remove the default username field and use email as the unique identifier
+    username = None
+    name = models.CharField(max_length=255, null=False, blank=False)
+    email = models.EmailField(unique=True, null=False, blank=False)
+    profile = models.CharField(max_length=1000, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -65,4 +67,4 @@ class Conversation(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Conversation {self.id} - {self.user.email if self.user else 'Anonymous'}"
+        return f"{self.user_text} - {self.llm_response}"
